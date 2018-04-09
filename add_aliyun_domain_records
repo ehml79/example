@@ -106,7 +106,7 @@ if __name__ == "__main__":
     # 添加解析
     # 修改DomainName 的值
     Action = 'AddDomainRecord'
-    user_param = {'DomainName' : 'yourdomain', 'RR' : 'your_pre_domain','Type' : 'A','Value':'1.1.1.1','Line':'default'}
+    user_param = {'DomainName' : 'your_domain', 'RR' : 'your_pre_domain','Type' : 'A','Value':'1.1.1.1','Line':'default'}
     get_regions(server_url, Action, user_param, AccessKeySecret, AccessKeyId, Version)
 
 
