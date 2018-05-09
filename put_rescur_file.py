@@ -1,5 +1,3 @@
-# 上传文件和文件夹下
-
 import paramiko
 import os
 import sys
@@ -9,11 +7,17 @@ import datetime
 
 # 读取所有远程服务器
 def read_hosts(local_dir, remote_dir):
+    # 建立一个sshclient对象
     ssh = paramiko.SSHClient()
+    # 允许将信任的主机自动加入到host_allow 列表，此方法必须放在connect方法的前面
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    # 调用connect方法连接服务器
     ssh.connect(hostname=hostip, username=username, password=password)
+    # 实例化一个transport对象
     ftp = paramiko.Transport(hostip, port)
+    # 建立连接
     ftp.connect(username=username, password=password)
+    # 实例化一个 sftp对象,指定连接的通道
     sftp = paramiko.SFTPClient.from_transport(ftp)
     remote_dir_if(ssh, remote_dir)
     subdir_OR_pardir(hostip, ssh, ftp, sftp, local_dir, remote_dir)
@@ -22,6 +26,7 @@ def read_hosts(local_dir, remote_dir):
 # 判断远程目录是否存在
 def remote_dir_if(ssh, remote_dir):
     remote_dir_if = 'ls -d ' + remote_dir
+    # 执行命令
     stdin, stdout, stderr = ssh.exec_command(remote_dir_if)
     result = stderr.read()
     if (len(result) != 0):
@@ -38,6 +43,7 @@ def subdir_OR_pardir(hostip, ssh, ftp, sftp, local_dir, remote_dir):
             remote_only_file = remote_dir + t
             remote_file_if(ssh, remote_only_file, local_dir, remote_dir)
             try:
+                # 发送文件
                 sftp.put(local_dir, remote_only_file)
                 ssh.close()
                 ftp.close()
