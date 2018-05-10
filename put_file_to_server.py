@@ -104,6 +104,8 @@ class Linux(object):
 
 
     def sftp_put_dir(self, local_dir, remote_dir):
+        local_dir = local_dir.replace('\\', '/')
+        remote_dir = remote_dir.replace('\\', '/')
         t = paramiko.Transport(self.ip, 22)
         t.connect(username=self.username, password=self.password)
         sftp = paramiko.SFTPClient.from_transport(t)
