@@ -5,7 +5,7 @@ import paramiko
 
 hostname = '1.1.1.1'
 username = 'root'
-password = '123456'
+password = 'password'
 
 def do_shell():
         # 创建SSH对象
