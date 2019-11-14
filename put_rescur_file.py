@@ -169,7 +169,7 @@ if __name__ == '__main__':
     port = 22
     hostip = '192.168.47.22'
     username = 'root'
-    password = 'redhat'
+    password = 'password'
 
     local_dir = r'G:/Wallpaper'
     remote_dir = r'/root/testdir/'
